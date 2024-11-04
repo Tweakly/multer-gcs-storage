@@ -1,12 +1,12 @@
 /* c8 ignore next */
 import multer from "multer";
 import * as Storage from "@google-cloud/storage";
+import {PredefinedAcl} from "@google-cloud/storage";
 import {Request, Response as ExpressResponse} from "express";
+import urlencode from "urlencode";
 import {v4 as uuid} from "uuid";
 
 import {buildConfiguration, GCPOptions, getGCSBucket, getGCSStorageClient, verifyConfiguration} from "./gcp-specific";
-import {PredefinedAcl} from "@google-cloud/storage";
-import urlencode from "urlencode";
 
 export type ContentTypeFunction = (req: Request, file: Express.Multer.File) => string | undefined;
 export type BucketIdFunction = (req: Request, file: Express.Multer.File) => string | Promise<string>;
@@ -230,7 +230,7 @@ export default class MulterGcsStorage implements multer.StorageEngine {
         });
     };
 
-    deleteFile = async (bucketName: string, bucketFileName: string) => {
+    deleteFile = async (bucketName: string, bucketFileName: string): Promise<void> => {
         if (!this.gcsStorage) {
             this.gcsStorage = await getGCSStorageClient(this.verifiedConfiguration);
         }
@@ -242,6 +242,7 @@ export default class MulterGcsStorage implements multer.StorageEngine {
             return Promise.resolve();
         }
 
-        return await file.delete();
+        await file.delete();
+        return Promise.resolve();
     };
 }
