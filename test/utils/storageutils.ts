@@ -2,7 +2,6 @@ import {Storage} from "@google-cloud/storage";
 import MulterGcsStorage, {MulterGcsStorageOptions} from "../../src";
 import fs from "fs";
 import {Request} from "express";
-import urlencode from "urlencode";
 import {GenericContainer} from "testcontainers";
 
 export type TestOptions = {
@@ -20,7 +19,6 @@ export const checkForFile = async (fileName: string, contentType = "text/plain",
     const bucket = storage.bucket(process.env.BUCKET_NAME as string);
     const file = bucket.file(fileName);
     const exists = await file.exists().catch(() => [false]);
-    console.log ("Checking for file: ", fileName, exists);
     if (!exists[0]) {
         return false;
     }
@@ -84,7 +82,6 @@ export const testWithStorage = async (t: any, multerStorage: MulterGcsStorage, o
     });
 
     if (resultFile && !options.expectError) {
-        console.log ("Result file path: ", resultFile.path);
         const exists = await checkForFile(resultFile.path, options.expectContentType, options.contentCheck);
         if (options.expectNoOriginalFilename) {
             t.falsy((resultFile.filename as string).endsWith(normalizedFileName));
@@ -126,8 +123,6 @@ export const testSetup = async () => {
         gcsPort
     )}`;
 
-    console.log ("apiEndpoint: ", apiEndpoint);
-
     // Configure the fake GCS server
     await fetch(`${apiEndpoint}/_internal/config`, {
         method: "PUT",
@@ -144,4 +139,4 @@ export const testSetup = async () => {
 
     process.env.GCS_API_ENDPOINT = apiEndpoint;
     process.env.BUCKET_NAME = bucketName;
-}
+};
