@@ -205,43 +205,43 @@ export default class MulterGcsStorage implements multer.StorageEngine {
 
     downloadFile = async (bucketName: string, bucketFileName: string,
                   writeFileName: string, res: ExpressResponse): Promise<void> => {
-        try {
-            if (!this.gcsStorage) {
-                this.gcsStorage = await getGCSStorageClient(this.verifiedConfiguration);
-            }
-
-            const bucket = this.gcsStorage.bucket(bucketName);
-            const file = bucket.file(bucketFileName);
-            res.attachment(writeFileName);
-
-            return new Promise((resolve, reject) => {
-                file.createReadStream()
-                    .pipe(res)
-                    .on("error", (err) => { reject(err); })
-                    .on("finish", () => {
-                        resolve();
-                    });
-            });
+        if (!this.gcsStorage) {
+            this.gcsStorage = await getGCSStorageClient(this.verifiedConfiguration);
         }
-        catch (e) {
-            return Promise.reject(e);
+
+        const bucket = this.gcsStorage.bucket(bucketName);
+        const file = bucket.file(bucketFileName);
+        if (!(await file.exists())[0]) {
+            return Promise.reject(new Error(`File ${bucketFileName} does not exist in bucket ${bucketName}`));
         }
+
+        res.attachment(writeFileName);
+
+        return new Promise((resolve, reject) => {
+            file.createReadStream()
+                .pipe(res)
+                .on("error", (err) => {
+                    /* c8 ignore next */
+                    reject(err);
+                })
+                .on("finish", () => {
+                    resolve();
+                });
+        });
     };
 
     deleteFile = async (bucketName: string, bucketFileName: string) => {
-        try {
-            if (!this.gcsStorage) {
-                this.gcsStorage = await getGCSStorageClient(this.verifiedConfiguration);
-            }
+        if (!this.gcsStorage) {
+            this.gcsStorage = await getGCSStorageClient(this.verifiedConfiguration);
+        }
 
-            const bucket = this.gcsStorage.bucket(bucketName);
-            const file = bucket.file(bucketFileName);
-
-            await file.delete();
+        const bucket = this.gcsStorage.bucket(bucketName);
+        const file = bucket.file(bucketFileName);
+        if (!(await file.exists())[0]) {
+            // Already deleted
             return Promise.resolve();
         }
-        catch (e) {
-            return Promise.reject(e);
-        }
+
+        return await file.delete();
     };
 }
