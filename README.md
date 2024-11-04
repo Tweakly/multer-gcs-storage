@@ -10,6 +10,8 @@ This is a storage engine for [multer](https://github.com/expressjs/multer) that 
 
 This package is primarily based on [multer-cloud-storage](https://github.com/alexandre-steinberg/multer-cloud-storage), but with support for multiple buckets and configuration options for local testing.
 
+In addition it has two extension methods compared with the multer interface: downloadFile and deleteFile.
+
 ## Getting started
 This package can be installed by your favourite package manager, e.g. pnpm.
 
@@ -35,6 +37,23 @@ const upload = multer({
         }
     }),
 });
+```
+
+## Extension API
+
+### downloadFile
+This method is used to download a file from the bucket. The file will be added as an attachment to the response, and the contents written to the response stream.
+
+```js
+ async (bucketName: string, bucketFileName: string,
+                  writeFileName: string, res: ExpressResponse): Promise<void>
+``` 
+
+### deleteFile
+This method is used to delete a file from the bucket.
+
+```js
+ async (bucketName: string, bucketFileName: string): Promise<void>
 ```
 
 ## Options
