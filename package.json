@@ -39,7 +39,7 @@
     "node-mocks-http": "^1.16.1",
     "testcontainers": "^10.13.2",
     "tsup": "^8.3.5",
-    "typescript": "5.5.4"
+    "typescript": "5.7.2"
   },
   "dependencies": {
     "@google-cloud/storage": "^7.14.0",
