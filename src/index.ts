@@ -215,8 +215,7 @@ export default class MulterGcsStorage implements multer.StorageEngine {
             return Promise.reject(new Error(`File ${bucketFileName} does not exist in bucket ${bucketName}`));
         }
 
-        res.attachment(writeFileName);
-
+        res.setHeader("Content-Disposition", "attachment; filename=" + writeFileName);
         return new Promise((resolve, reject) => {
             file.createReadStream()
                 .pipe(res)

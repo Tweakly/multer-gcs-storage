@@ -1,6 +1,6 @@
 {
   "name": "@tweakly/multer-gcs-storage",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "A Google Cloud Storage (buckets) backend for multer",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -65,7 +65,7 @@
       "mts": "module"
     },
     "nodeArguments": [
-      "--import=@septh/ts-run/register",
+      "--import=@septh/ts-run",
       "--trace-deprecation"
     ]
   },
