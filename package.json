@@ -1,9 +1,10 @@
 {
   "name": "@tweakly/multer-gcs-storage",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A Google Cloud Storage (buckets) backend for multer",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
     "build": "tsup src/index.ts --format cjs --dts",
     "test": "c8 --100 ava"
@@ -28,23 +29,24 @@
   },
   "homepage": "github.com/tweakly/multer-gcs-storage",
   "devDependencies": {
-    "@septh/ts-run": "^2.0.0",
-    "@types/express": "^5.0.0",
-    "@types/multer": "^1.4.12",
-    "@types/node": "^22.8.7",
+    "@septh/ts-run": "^2.2.0",
+    "@types/express": "^5.0.6",
+    "@types/multer": "^2.2.0",
+    "@types/node": "^26.1.1",
     "@types/urlencode": "^1.1.4",
     "@types/uuid": "^10.0.0",
-    "ava": "^6.2.0",
-    "c8": "^10.1.2",
-    "node-mocks-http": "^1.16.1",
-    "testcontainers": "^10.13.2",
-    "tsup": "^8.3.5",
+    "ava": "^8.0.1",
+    "c8": "^12.0.0",
+    "node-mocks-http": "^1.18.1",
+    "testcontainers": "^12.0.4",
+    "tsup": "^8.5.1",
+    "tsx": "^4.23.1",
     "typescript": "5.7.2"
   },
   "dependencies": {
-    "@google-cloud/storage": "^7.14.0",
+    "@google-cloud/storage": "^7.21.0",
     "urlencode": "^2.0.0",
-    "uuid": "^11.0.3"
+    "uuid": "^14.0.1"
   },
   "peerDependencies": {
     "express": "^4.19.2",
@@ -60,13 +62,9 @@
       "test/**/*.ts",
       "!test/utils/**"
     ],
-    "extensions": {
-      "ts": "module",
-      "mts": "module"
-    },
-    "nodeArguments": [
-      "--import=@septh/ts-run",
-      "--trace-deprecation"
+    "extensions": [
+      "ts",
+      "mts"
     ]
   },
   "c8": {

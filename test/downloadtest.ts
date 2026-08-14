@@ -1,8 +1,9 @@
 import test from "ava";
 import httpMocks from "node-mocks-http";
-import {checkForFile, testSetup, testStorage} from "./utils/storageutils";
+import {checkForFile, testSetup, testStorage} from "./utils/storageutils.ts";
 import urlencode from "urlencode";
-import MulterGcsStorage from "../src";
+import MulterGcsStorage from "../src/index.ts";
+import { EventEmitter as em } from "events";
 
 test.before(async () => {
     await testSetup()
@@ -21,7 +22,7 @@ test("GCS integration, downloadFile", async t => {
     t.truthy(exists);
 
     const res = httpMocks.createResponse({
-        eventEmitter: require('events').EventEmitter
+        eventEmitter: em 
     });
     res.on("error", () => {
         t.fail("Error event should not be triggered");
@@ -48,7 +49,7 @@ test("GCS integration, downloadFile error handling", async t => {
 
     t.truthy(multerStorage);
     const res = httpMocks.createResponse({
-        eventEmitter: require('events').EventEmitter
+        eventEmitter: em 
     });
     res.on("error", (err) => {
         t.fail("Error event should not be triggered");

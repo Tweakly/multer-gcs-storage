@@ -1,6 +1,6 @@
-import {Request} from "express";
+import type {Request} from "express";
 import test from "ava";
-import {checkForFile, testSetup, testStorage, testWithStorage} from "./utils/storageutils";
+import {checkForFile, testSetup, testStorage, testWithStorage} from "./utils/storageutils.ts";
 
 test.before(async () => {
     await testSetup()

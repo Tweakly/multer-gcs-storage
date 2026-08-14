@@ -2,7 +2,6 @@
 A flexible GCS storage backend for multer
 
 [![last commit](https://badgen.net/github/last-commit/Tweakly/multer-gcs-storage)](https://github.com/Twewakly/multer-gcs-storage)
-[![npm package link](https://img.shields.io/npm/v/@tweakly/multer-gcs-storage)](https://www.npmjs.com/package/@tweakly/multer-gcs-storage)
 [![MIT License](https://badgen.net/npm/license/multer-cloud-storage)](https://opensource.org/licenses/MIT)
 
 ## Introduction 
@@ -16,7 +15,7 @@ In addition it has two extension methods compared with the multer interface: dow
 This package can be installed by your favourite package manager, e.g. pnpm.
 
 ```bash
-pnpm add @tweakly/i18n-node-gcs-backend
+pnpm add @tweakly/multer-gcs-storage
 ```
 
 Wiring up:

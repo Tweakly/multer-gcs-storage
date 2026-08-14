@@ -1,6 +1,6 @@
 import test from "ava";
-import {checkForFile, testSetup, testStorage} from "./utils/storageutils";
-import MulterGcsStorage from "../src";
+import {checkForFile, testSetup, testStorage} from "./utils/storageutils.ts";
+import MulterGcsStorage from "../src/index.ts";
 import httpMocks from "node-mocks-http";
 
 test.before(async () => {

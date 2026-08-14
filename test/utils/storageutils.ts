@@ -1,7 +1,8 @@
 import {Storage} from "@google-cloud/storage";
-import MulterGcsStorage, {MulterGcsStorageOptions} from "../../src";
+import MulterGcsStorage from "../../src/index.ts";
+import MulterGcsStorageOptions from "../../src/index.ts";
 import fs from "fs";
-import {Request} from "express";
+import type {Request} from "express";
 import {GenericContainer} from "testcontainers";
 
 export type TestOptions = {
@@ -133,7 +134,8 @@ export const testSetup = async () => {
     });
 
     const storage = new Storage({
-        apiEndpoint
+        apiEndpoint,
+        projectId: "test-project"
     });
     await storage.createBucket(bucketName);
 

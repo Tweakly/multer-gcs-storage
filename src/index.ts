@@ -1,12 +1,12 @@
 /* c8 ignore next */
 import multer from "multer";
 import * as Storage from "@google-cloud/storage";
-import {PredefinedAcl} from "@google-cloud/storage";
-import {Request, Response as ExpressResponse} from "express";
+import {type PredefinedAcl} from "@google-cloud/storage";
+import type {Request, Response as ExpressResponse} from "express";
 import urlencode from "urlencode";
 import {v4 as uuid} from "uuid";
 
-import {buildConfiguration, GCPOptions, getGCSBucket, getGCSStorageClient, verifyConfiguration} from "./gcp-specific";
+import {buildConfiguration, type GCPOptions, getGCSBucket, getGCSStorageClient, verifyConfiguration} from "./gcp-specific.ts";
 
 export type ContentTypeFunction = (req: Request, file: Express.Multer.File) => string | undefined;
 export type BucketIdFunction = (req: Request, file: Express.Multer.File) => string | Promise<string>;
